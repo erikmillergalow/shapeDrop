@@ -1,0 +1,1 @@
+"C:\Program Files\Godot\Godot_v3.4.2-stable_win64.exe" --no-window --export "Windows Desktop" build/shapeDrop
