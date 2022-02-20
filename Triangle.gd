@@ -24,7 +24,7 @@ remote func handle_dropped():
 	mode = RigidBody2D.MODE_RIGID
 	controllable = false
 
-func _process(delta):
+func _process(_delta):
 	if controllable && !get_tree().is_network_server():
 		if Input.is_action_pressed("move_left"):
 			rpc("handle_movement", get_global_transform().origin - Vector2(3, 0))

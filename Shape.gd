@@ -69,6 +69,7 @@ remotesync func swap_shape(index):
 remotesync func handle_dropped():
 	# only use physics on the server
 	if (get_tree().is_network_server()):
+		print("Handle dropped")
 		mode = RigidBody2D.MODE_RIGID
 	controllable = false
 
@@ -78,8 +79,11 @@ func _input(event):
 			rpc("swap_shape", current_shape + 1)
 		if event.is_action_pressed("get_last_shape"):
 			rpc("swap_shape", current_shape - 1)
+		if event.is_action_pressed("drop"):
+			print("Pressed drop")
+			rpc("handle_dropped")
 
-func _process(delta):
+func _process(_delta):
 	if controllable and (!get_tree().is_network_server() or single_player):
 		if Input.is_action_pressed("move_left"):
 			rpc("handle_movement", get_global_transform().origin - Vector2(3, 0))
@@ -89,8 +93,26 @@ func _process(delta):
 			rpc("handle_rotation", .05)
 		if Input.is_action_pressed("rotate_counter_clockwise"):
 			rpc("handle_rotation", -.05)
-		if Input.is_action_pressed("drop"):
-			rpc("handle_dropped")
 	
 	if get_tree().is_network_server() and not single_player:
 		rpc("update_position", global_transform.origin, global_transform.get_rotation(), controllable)
+
+
+func start_doom_timer():
+	print("Start doom timer...")
+	modulate = Color(0.78, 0.08, 0.52)
+	get_parent().get_node("TimerOfDoom").start(4)
+
+func end_doom_timer():
+	print("End doom timer...")
+	modulate = Color(1, 1, 1)
+	get_parent().get_node("TimerOfDoom").stop()
+
+func _on_Shape_body_entered(body):
+	print("Shape entered body")
+	# get_canvas_item().set_color(Vector3(.5, .5, .5))
+	get_node("Polygon2D").modulate = Color(.5, .5, .5)
+
+
+func _on_Shape_body_exited(body):
+	pass # Replace with function body.

@@ -4,3 +4,6 @@
 
 [node name="Shape" type="RigidBody2D"]
 script = ExtResource( 1 )
+
+[connection signal="body_entered" from="." to="." method="_on_Shape_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_Shape_body_exited"]
