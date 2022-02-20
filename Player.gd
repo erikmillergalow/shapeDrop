@@ -13,7 +13,10 @@ func _ready():
 func init(player_id, vertices):
 	print("Pieces:", pieces)
 	id = player_id
-	pieces.append_array(vertices)
+	pieces = vertices.duplicate()
+
+func remove_piece(id):
+	pieces.remove(id)
 
 #func get_pieces():
 #	print("get_pieces():", pieces)

@@ -7,13 +7,7 @@ var controllable = true
 var single_player = false
 
 var current_shape = 0
-var polygon_list = []
-#var polygon_list = [
-#	PoolVector2Array([Vector2(-50, 50), Vector2(50, 50), Vector2(50, -50), Vector2(-50, -50)]), # square
-#	PoolVector2Array([Vector2(-50, 50), Vector2(50, 50), Vector2(-50, -50)]), # triangle
-#	PoolVector2Array([Vector2(-30, 30), Vector2(90, 30), Vector2(30, -30), Vector2(-30, -30)]), # pointy
-#	PoolVector2Array([Vector2(-30, 30), Vector2(120, 30), Vector2(120, -30), Vector2(-30, -30)]), # rectangle
-#]
+var polygon_list = [] # user passes list of remaining pieces to allow swapping
 
 func _ready():
 	# screen_size = get_viewport_rect().size
@@ -69,6 +63,8 @@ remotesync func swap_shape(index):
 	var shape = Polygon2D.new()
 	shape.polygon = points
 	add_child(shape)
+	
+	get_parent().polygon_index = current_shape
 
 remotesync func handle_dropped():
 	# only use physics on the server
