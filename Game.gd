@@ -20,6 +20,7 @@ var polygon_list = [
 	PoolVector2Array([Vector2(-30, 30), Vector2(90, 30), Vector2(30, -30), Vector2(-30, -30)]), # pointy
 	PoolVector2Array([Vector2(-30, 30), Vector2(120, 30), Vector2(120, -30), Vector2(-30, -30)]), # rectangle
 	PoolVector2Array([Vector2(-30, 30), Vector2(30, 30), Vector2(-30, -30)]), # small triangle
+	PoolVector2Array([Vector2(-50, 50), Vector2(50, 50), Vector2(25, 0), Vector2(50, -50), Vector2(-50, -50)]), # square weird
 ]
 
 func _ready():
@@ -114,4 +115,6 @@ func _on_SpawnTimer_timeout():
 	rpc("spawn_shape")
 
 func _on_TimerOfDoom_timeout():
-	print("Player:", current_player, "loses!")
+	print("Player: ", ((current_player + 1) % 2), " wins!")
+	$EndGameMenu/EndGameMessage.text = "Player: " + String(current_player) + " wins!"
+	$EndGameMenu.popup()

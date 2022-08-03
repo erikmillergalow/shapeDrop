@@ -14,7 +14,7 @@ func _ready():
 	mode = RigidBody2D.MODE_STATIC
 	set_process_input(true)
 
-func init(player_pieces):#vertices):
+func init(player_pieces):
 	polygon_list = player_pieces
 	# create the collision polygon and add as child
 	var collider = CollisionPolygon2D.new()
@@ -80,7 +80,6 @@ func _input(event):
 		if event.is_action_pressed("get_last_shape"):
 			rpc("swap_shape", current_shape - 1)
 		if event.is_action_pressed("drop"):
-			print("Pressed drop")
 			rpc("handle_dropped")
 
 func _process(_delta):

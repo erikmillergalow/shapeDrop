@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Wall.tscn" type="PackedScene" id=1]
 [ext_resource path="res://title-icon.png" type="Texture" id=2]
 [ext_resource path="res://Game.gd" type="Script" id=3]
 [ext_resource path="res://LineOfDoom.gd" type="Script" id=4]
+[ext_resource path="res://EndGameMessage.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 144.5, 0.5 )
@@ -60,6 +61,19 @@ shape = SubResource( 1 )
 
 [node name="TimerOfDoom" type="Timer" parent="."]
 one_shot = true
+
+[node name="EndGameMenu" type="PopupMenu" parent="."]
+anchor_right = 1.0
+margin_left = 306.0
+margin_top = 101.0
+margin_right = 753.0
+margin_bottom = 472.0
+
+[node name="EndGameMessage" type="Label" parent="EndGameMenu"]
+margin_right = 40.0
+margin_bottom = 14.0
+align = 1
+script = ExtResource( 5 )
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
 [connection signal="body_entered" from="LineOfDoom" to="LineOfDoom" method="_on_LineOfDoom_body_entered"]
